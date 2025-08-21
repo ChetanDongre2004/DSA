@@ -1,44 +1,21 @@
 class Solution {
 public:
-
-    int bruteForce(string haystack, string needle) {
-        int ans = -1;
-        bool flag = 0;
-        for(int i=0; i<haystack.length(); i++) {
-            string s = "";
-            for(int j=i; j<haystack.length(); j++) {
-                s.push_back(haystack[j]);
-                if(s == needle) {
-                    ans = i;
-                    flag = 1;
-                    break;
-                }
-            }
-            if(flag) break;
-        }
-        return ans;
-    }
-
     int strStr(string haystack, string needle) {
-        //return bruteForce(haystack, needle);
-        // O(n^2) , n = length of haystack
+       int n = haystack.size();
+    int m = needle.size();
 
-        // Sliding Window
-        // O(n * m) , n = length of haystack, m = length of needle
+    if (m == 0) return 0; // empty needle case
 
-        int n = haystack.length();
-        int m = needle.length();
-
-        for(int i = 0; i <= n-m; i++) {
-            for(int j = 0; j < m; j++) {
-                if(needle[j] != haystack[i + j]) {
-                    break;
-                }
-                if(j == m-1) {
-                    return i;
-                }
-            }
+    for (int i = 0; i <= n - m; i++) {
+        int j = 0;
+        while (j < m && haystack[i + j] == needle[j]) {
+            j++;
         }
-        return -1;
+        if (j == m) {
+            return i; // found match at index i
+        }
+    }
+    return -1; // not found
+        
     }
 };
